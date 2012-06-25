@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">PageKite for Android</string><string name="hello">Hello World, PageKiteAppActivity!</string>
+    
+    <string name="ticker_text">Started PageKite Service</string>
+    <string name="notification_title">Started PageKite</string>
+    <string name="notification_message">Started PageKite background service</string>
+
+</resources>
