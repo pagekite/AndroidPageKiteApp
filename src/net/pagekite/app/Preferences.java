@@ -14,8 +14,7 @@ public class Preferences extends PreferenceActivity {
     protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.preferences);
-            Preference enabled = updateStatus(false);
-            enabled.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+            updateStatus(false).setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
 				@Override
 				public boolean onPreferenceChange(Preference pref, Object obj) {
 					CheckBoxPreference enabled = updateStatus(true);
@@ -35,11 +34,16 @@ public class Preferences extends PreferenceActivity {
 	protected CheckBoxPreference updateStatus(boolean changing) {
 		boolean status = false;
 		CheckBoxPreference enabled = (CheckBoxPreference) findPreference("enablePageKite");
-		enabled.setSummary("PageKite might be running! You never know!");
-		
         // TODO: Actually check status, update summary and checkbox.
 		status = enabled.isChecked() ^ changing;
-		
+
+		if (status) {
+			enabled.setSummary(getText(R.string.pagekite_running));
+		}
+		else {
+			enabled.setSummary(getText(R.string.pagekite_stopped));
+		}
+
         enabled.setChecked(status);
         this.findPreference("kiteName").setEnabled(!status);
         this.findPreference("kiteSecret").setEnabled(!status);

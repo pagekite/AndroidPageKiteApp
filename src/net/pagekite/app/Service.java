@@ -29,7 +29,7 @@ public class Service extends android.app.Service {
 		PendingIntent pendingIntent = PendingIntent.getActivity(this, 0,
 																notificationIntent, 0);
 		notification.setLatestEventInfo(this, getText(R.string.notification_title),
-		        						getText(R.string.notification_message),
+		        						getText(R.string.pagekite_running),
 		        						pendingIntent);
 		startForeground(NOTIFICATION_ID, notification);
 	}
