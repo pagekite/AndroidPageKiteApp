@@ -43,5 +43,10 @@
             android:numeric="integer"
             android:title="HTTPS Port"
             android:key="httpsPortNumber" />
-	</PreferenceCategory>
+		<CheckBoxPreference
+        	android:title="Use WiFi IP"
+            android:defaultValue="false"
+            android:summary="Connect to the WiFi IP address.  Otherwise, defaults to localhost."
+            android:key="useWiFiIP" />
+      </PreferenceCategory>
 </PreferenceScreen>

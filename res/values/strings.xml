@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">PageKite for Android</string>
+    <string name="app_name">PageKite Testing</string>
     
     <string name="ticker_text">Started PageKite Service</string>
     <string name="notification_title">PageKite</string>

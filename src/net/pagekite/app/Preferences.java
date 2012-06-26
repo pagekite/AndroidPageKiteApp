@@ -50,6 +50,7 @@ public class Preferences extends PreferenceActivity {
         this.findPreference("httpPortNumber").setEnabled(!status);
         this.findPreference("websocketPortNumber").setEnabled(!status);
         this.findPreference("httpsPortNumber").setEnabled(!status);
+        this.findPreference("useWiFiIP").setEnabled(!status);
 		return enabled;
 	}
 }
