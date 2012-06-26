@@ -44,6 +44,7 @@ public class Service extends android.app.Service {
 		int httpPortNumber = Integer.parseInt(prefs.getString("httpPortNumber", "0"));
 		int websocketPortNumber = Integer.parseInt(prefs.getString("websocketPortNumber", "0"));
 		int httpsPortNumber = Integer.parseInt(prefs.getString("httpsPortNumber", "0"));
+		int sshPortNumber = Integer.parseInt(prefs.getString("sshPortNumber", "0"));
 		String localip = "localhost";
 		if (prefs.getBoolean("useWiFiIP", false)) {
 			localip = getWiFiIP();
@@ -81,6 +82,11 @@ public class Service extends android.app.Service {
 				ok = PageKiteAPI.addKite("https", kiteName, 0, kiteSecret,
 					   	                 localip, httpsPortNumber);
 				problem = "add_kite(https, ...) failed.";
+			}
+			if (ok && (sshPortNumber > 0)) {
+				ok = PageKiteAPI.addKite("raw", kiteName, 22, kiteSecret,
+					   	                 localip, sshPortNumber);
+				problem = "add_kite(ssh, ...) failed.";
 			}
 			if (ok) {
 				ok = PageKiteAPI.addFrontend(kiteName, 443, 1);

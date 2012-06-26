@@ -12,12 +12,14 @@
         	android:name="Kite name"
         	android:summary="Your kite's public DNS name.\nUsually something.pagekite.me."
         	android:defaultValue="something.pagekite.me"
+        	android:inputType="textUri"
         	android:title="Kite Name"
         	android:key="kiteName" />
         <EditTextPreference
         	android:name="Shared Secret"
             android:summary="Your kite's shared secret."
             android:defaultValue="secret"
+        	android:inputType="textPassword"
             android:title="Shared Secret"
             android:key="kiteSecret" />
 	</PreferenceCategory>
@@ -26,24 +28,31 @@
         	android:name="HTTP Port"
             android:summary="The local port of your HTTP server.\n0 for none."
             android:defaultValue="0"
-            android:numeric="integer"
+            android:numeric="decimal"
             android:title="HTTP Port"
             android:key="httpPortNumber" />
         <EditTextPreference
             android:name="Websocket Port"
             android:summary="The local port of your Websocket server.\n0 for none."
             android:defaultValue="0"
-            android:numeric="integer"
+            android:numeric="decimal"
             android:title="Websocket Port"
             android:key="websocketPortNumber" />
         <EditTextPreference
             android:name="HTTPS Port"
             android:summary="The local port of your HTTPS server.\n0 for none."
             android:defaultValue="0"
-            android:numeric="integer"
+            android:numeric="decimal"
             android:title="HTTPS Port"
             android:key="httpsPortNumber" />
-		<CheckBoxPreference
+        <EditTextPreference
+            android:name="SSH Port"
+            android:summary="The local port of your SSH server.\n0 for none."
+            android:defaultValue="0"
+            android:numeric="decimal"
+            android:title="SSH Port"
+            android:key="sshPortNumber" />
+   		<CheckBoxPreference
         	android:title="Use WiFi IP"
             android:defaultValue="false"
             android:summary="Connect to the WiFi IP address.  Otherwise, defaults to localhost."
