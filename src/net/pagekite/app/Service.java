@@ -98,16 +98,24 @@ public class Service extends android.app.Service {
 			}
 		    if (ok)
 			{
-				Notification nfy = new Notification(R.drawable.notify_icon,
-							 						getText(R.string.ticker_text),
-													System.currentTimeMillis());
-				Intent nfInt = new Intent(this, Preferences.class);
-				PendingIntent pendingIntent = PendingIntent.getActivity(this, 0,
-																		nfInt, 0);
-				nfy.setLatestEventInfo(this, getText(R.string.notification_title),
-				      					     getText(R.string.pagekite_running),
-				        					 pendingIntent);
-				startForeground(NOTIFICATION_ID, nfy);
+				if (prefs.getBoolean("showNotification", false)) {
+					Notification nfy = new Notification(R.drawable.notify_icon,
+							getText(R.string.ticker_text),
+							System.currentTimeMillis());
+					Intent nfInt = new Intent(this, Preferences.class);
+					PendingIntent pendingIntent = PendingIntent.getActivity(this, 0,
+							nfInt, 0);
+					nfy.setLatestEventInfo(this,
+							getText(R.string.notification_title),
+							getText(R.string.pagekite_running),
+							pendingIntent);
+					startForeground(NOTIFICATION_ID, nfy);
+				}
+				else {
+					Toast.makeText(getBaseContext(),
+						       "Started PageKite Service",
+						       Toast.LENGTH_LONG).show();					
+				}
 			}
 			else {
 				Toast.makeText(getBaseContext(),

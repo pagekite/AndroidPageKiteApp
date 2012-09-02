@@ -6,6 +6,11 @@
             android:defaultValue="false"
             android:summary="Enable or disable the PageKite background service."
             android:key="enablePageKite" />
+		<CheckBoxPreference
+        	android:title="Show Notification"
+            android:defaultValue="true"
+            android:summary="Display service notification when active."
+            android:key="showNotification" />
 	</PreferenceCategory>
 	<PreferenceCategory android:title="Account Details">
     	<EditTextPreference
@@ -57,5 +62,5 @@
             android:defaultValue="false"
             android:summary="Connect to the WiFi IP address.  Otherwise, defaults to localhost."
             android:key="useWiFiIP" />
-      </PreferenceCategory>
+    </PreferenceCategory>
 </PreferenceScreen>
