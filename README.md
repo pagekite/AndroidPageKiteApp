@@ -25,7 +25,7 @@ For more information about PageKite, see http://pagekite.org/
 
 ## License and Copyright ##
 
-PageKite for Android is Copyright 2011, 2012, The Beanstalks Project ehf.
+PageKite for Android is Copyright 2012, The Beanstalks Project ehf.
 
 This code is released under the GNU Affero General Public License version 3,
 but may also be used (under specific conditions) according to the terms of the

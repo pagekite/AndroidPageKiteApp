@@ -1,18 +1,20 @@
 <html><head>
 </head><body><div>
- <div style='text-align: center;'>
+ <div style='text-align: center; padding-top: 15px; padding-bottom: 15px;'>
   <h1><img src='../pagekite-logo.png' alt='PageKite'></h1>
-  <p><i>A Web of Androids<br>
-     by <a href='http://pagekite.net/'>pagekite.net</a></i></p>
+  <p>
+    <i>A Web of Androids<br>
+    by <a href='http://pagekite.net/'>pagekite.net</a></i>
+  </p>
   <p><small><br>
-    <a href='http://www.surfnet.nl/'><img src='../surfnet.png' alt='SurfNet'></a>
+    <a href='http://www.surfnet.nl/'
+      ><img src='../surfnet.png' alt='SurfNet'></a>
     <a href='http://www.rannis.is/english/funding/technology-development-fund/'
       ><img src='../tdfund.png' alt='Rannis'></a>
-    <a href='http://www.gnu.org/licenses/agpl.html'><img src='../agplv3.png' alt='AGPLv3'></a>
+    <a href='http://www.gnu.org/licenses/agpl.html'
+      ><img src='../agplv3.png' alt='AGPLv3'></a>
   </small></p>
  </div>
-
- <p><br></p>
 
  <a name='toc'></a><h2>Contents</h2>
  <ul>
@@ -23,7 +25,7 @@
    <li><a href='#credits'>License and Credits</a></li>
  </ul>
 
- <a name='intro'></a><h2>What is PageKite?</h2>
+ <br><a name='intro'></a><h2>What is PageKite?</h2>
  <p>
    PageKite is a tool which makes your Android phone a fully-fledged part
    of the World Wide Web.  It lets you choose a public name for your device
@@ -40,14 +42,23 @@
    to work</a> with PageKite.
  </p>
 
- <a name='start'></a><h2>Getting Started</h2>
+ <br><a name='start'></a><h2>Getting Started</h2>
  <h4>Using pagekite.net</h4>
  <ol>
    <li>Install an SSH or Web Server app</li>
-   <li>Configure the ports in Local Server Settings and the server app so the ports match.</li>
-   <li><a href='https://pagekite.net/signup/'>Sign up for a pagekite.net account</a>.</li>
+   <li>Configure the ports in Local Server Settings and the server app so the
+       ports match.</li>
+   <li><a href='https://pagekite.net/signup/'>Sign up for a pagekite.net
+       account</a>.</li>
    <li>Configure the Account Details with your kite name and shared secret.</li>
  </ol>
+ <p>
+   <b>Note:</b> if you are using a <tt>.pagekite.me</tt> name, your websites
+   will automatically have SSL encryption support!  Just use the
+   <tt>https://</tt> prefix instead of plain HTTP.
+ </p>
+
+
  <h4>Running your own relay</h4>
  <p>
    This process is more or less the same as above, except instead of signing
@@ -56,31 +67,79 @@
    relay software</a> on a computer or VPS with a public IP address.
  </p>
 
- <a name='apps'></a><h2>Web and SSH Server Apps</h2>
-
-
- <a name='help'></a><h2>Community and support</h2>
-
-
- <a name='credits'></a><h2>License and Credits</h2>
+ <br><a name='apps'></a><h2>Web and SSH Server Apps</h2>
  <p>
-   PageKite for Android is Copyright 2012, The Beanstalks Project ehf.
+   The following apps have been tested and confirmed (as of September 2012) to
+   work with PageKite:
+ </p>
+ <ul>
+   <li><a href='https://play.google.com/store/apps/details?id=berserker.android.apps.sshdroid'>SSHDroid</a>
+      by <a href='http://berserkerdevel.blogspot.com/'>Berserker</a><br>
+      Note that SSH clients must be <a href='http://pagekite.net/wiki/Howto/SshOverPageKite/'>configured
+      to use HTTP CONNECT</a>.  Works very well.
+   </li>
+   <li><a href='https://play.google.com/store/apps/details?id=de.fun2code.android.pawserver'>PAW Server</a> by
+       <a href='http://www.fun2code.de/'>Jochen</a><br>
+      A powerful web server for remote-controlling your phone.  Works well.
+   </li>
+   <li><a href='https://play.google.com/store/apps/details?id=com.pas.webcam'>IP Webcam</a> by
+       <a href='http://ip-webcam.appspot.com/'>Pavel Khlebovich</a><br>
+      Motion JPEG streaming works, but the app generates some direct URL links
+      which do not work.</li>
+   <li><a href=''></a> <i>... more to come ...</i> <br></li>
+ </ul>
+ <p>
+   <b>Note:</b> None of the above apps are affiliated with PageKite or The
+   Beanstalks Project.  We cannot make any guarantees about their security,
+   quality or compatibility.
+ </p>
+
+
+ <br><a name='help'></a><h2>Community and Support</h2>
+ <p>
+   If you are having trouble with PageKite, you may be able to find solutions
+   or help in one of the following places:
+ <p>
+ <ul>
+   <li>pagekite.net:
+     <a href='http://pagekite.net/wiki/'>Wiki</a>,
+     <a href='http://pagekite.net/support/forum/'>Forum</a>,
+     <a href='http://pagekite.net/Blog'>Blog</a>
+   </li>
+   <li>IRC: #pagekite on irc.freenode.net
+       (<a href='http://pagekite.net/support/chat/'>web-chat</a>)
+   <li><a href='https://github.com/pagekite/AndroidPageKiteApp'
+         >Use the source, luke!</a>
+ </ul>
+ <p>
+   Keep in mind that not everyone is using the mobile app, many discussions
+   apply only to the desktop or server versions of the software.  Make sure to
+   mention that you are using the Android app.
+ </p>
+
+
+ <br><a name='credits'></a><h2>License and Credits</h2>
+ <p>
+   PageKite for Android is Copyright 2012,
+   <a href='http://pagekite.net/company/'>The Beanstalks Project ehf</a>.
  </p>
  <p>
-   This code is released under the GNU Affero General Public License version 3,
-   but may also be used (under specific conditions) according to the terms of the
-   GNU Lesser General Public License.  Please see the file COPYING.md in the
-   <a href='https://github.com/pagekite/AndroidPageKiteApp'>source repository</a>
-   for details on which license applies to you.
+   This app is Free Software.  It is released under the GNU Affero General
+   Public License version 3, but the code may also be used (under specific
+   conditions) according to the terms of the GNU Lesser General Public License.
+   Please see the file COPYING.md in the
+   <a href='https://github.com/pagekite/AndroidPageKiteApp'>source
+   repository</a> for details on which license applies to you.
  </p>
  <p>
    Commercial support for this code, as well as managed front-end relay service,
    are available from <a href='https://pagekite.net/'>pagekite.net</a>.
  </p>
  <p>
-   Development of this code was partially sponsored by
-   <a href='http://www.surfnet.nl'>SurfNet</a> and the
-   <a href='http://www.rannis.is/'>Icelandic Technology Development fund</a>.
+   Development of PageKite for Android was partially sponsored by
+   <a href='http://www.surfnet.nl/'>SurfNet</a> and the
+   <a href='http://www.rannis.is/english/funding/technology-development-fund/'
+     >Icelandic Technology Development fund</a>.
  </p>
 
 </div></body></html>
