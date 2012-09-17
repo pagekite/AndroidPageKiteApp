@@ -13,6 +13,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".HelpViewer" />
         <service android:name=".Service" android:exported="false" />
     </application>
 </manifest>

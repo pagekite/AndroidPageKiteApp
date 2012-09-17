@@ -1,66 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-	<PreferenceCategory android:title="Enable PageKite">
-		<CheckBoxPreference
-        	android:title="Enable PageKite"
-            android:defaultValue="false"
-            android:summary="Enable or disable the PageKite background service."
-            android:key="enablePageKite" />
-		<CheckBoxPreference
-        	android:title="Show Notification"
-            android:defaultValue="true"
-            android:summary="Display service notification when active."
-            android:key="showNotification" />
-	</PreferenceCategory>
-	<PreferenceCategory android:title="Account Details">
+	<CheckBoxPreference
+       	android:title="@string/pagekite_pref_enable"
+        android:defaultValue="false"
+        android:key="enablePageKite" />
+	<CheckBoxPreference
+    	android:title="@string/pagekite_pref_notification"
+        android:defaultValue="true"
+        android:summary="@string/pagekite_summary_notification"
+        android:key="showNotification" />
+	<PreferenceScreen android:key="prefsAccount"
+	                  android:title="@string/pagekite_prefs_account">
     	<EditTextPreference
-        	android:name="Kite name"
-        	android:summary="Your kite's public DNS name.\nUsually something.pagekite.me."
-        	android:defaultValue="something.pagekite.me"
+        	android:name="@string/pagekite_pref_kitename"
+        	android:summary="@string/pagekite_summary_kitename"
+        	android:defaultValue="@string/pagekite_default_kitename"
         	android:inputType="textUri"
         	android:title="Kite Name"
         	android:key="kiteName" />
         <EditTextPreference
-        	android:name="Shared Secret"
-            android:summary="Your kite's shared secret."
-            android:defaultValue="secret"
+        	android:name="@string/pagekite_pref_secret"
+            android:summary="@string/pagekite_summary_secret"
+            android:defaultValue=""
         	android:inputType="textPassword"
             android:title="Shared Secret"
             android:key="kiteSecret" />
-	</PreferenceCategory>
-	<PreferenceCategory android:title="Local Server Settings">
-        <EditTextPreference
-        	android:name="HTTP Port"
-            android:summary="The local port of your HTTP server.\n0 for none."
-            android:defaultValue="0"
-            android:numeric="decimal"
-            android:title="HTTP Port"
-            android:key="httpPortNumber" />
-        <EditTextPreference
-            android:name="Websocket Port"
-            android:summary="The local port of your Websocket server.\n0 for none."
-            android:defaultValue="0"
-            android:numeric="decimal"
-            android:title="Websocket Port"
-            android:key="websocketPortNumber" />
-        <EditTextPreference
-            android:name="HTTPS Port"
-            android:summary="The local port of your HTTPS server.\n0 for none."
-            android:defaultValue="0"
-            android:numeric="decimal"
-            android:title="HTTPS Port"
-            android:key="httpsPortNumber" />
-        <EditTextPreference
-            android:name="SSH Port"
-            android:summary="The local port of your SSH server.\n0 for none."
-            android:defaultValue="0"
-            android:numeric="decimal"
-            android:title="SSH Port"
-            android:key="sshPortNumber" />
-   		<CheckBoxPreference
-        	android:title="Use WiFi IP"
+		<CheckBoxPreference
+        	android:title="@string/pagekite_pref_pagekitenet"
+            android:defaultValue="true"
+            android:summary="@string/pagekite_summary_pagekitenet"
+            android:key="usePageKiteNet" />
+	</PreferenceScreen>
+	<PreferenceScreen android:key="prefsLocalhost"
+	                  android:title="@string/pagekite_prefs_localhost">
+		<PreferenceCategory android:title="@string/pagekite_info_localhost">
+	    	<EditTextPreference
+        		android:name="@string/pagekite_pref_httpport"
+	            android:summary="@string/pagekite_summary_httpport"
+    	        android:defaultValue="0"
+        	    android:numeric="decimal"
+            	android:title="@string/pagekite_pref_httpport"
+	            android:key="httpPortNumber" />
+    	    <EditTextPreference
+        	    android:name="@string/pagekite_pref_wsport"
+            	android:summary="@string/pagekite_summary_wsport"
+	            android:defaultValue="0"
+    	        android:numeric="decimal"
+        	    android:title="@string/pagekite_pref_wsport"
+            	android:key="websocketPortNumber" />
+	        <EditTextPreference
+    	        android:name="@string/pagekite_pref_httpsport"
+        	    android:summary="@string/pagekite_summary_httpsport"
+            	android:defaultValue="0"
+	            android:numeric="decimal"
+    	        android:title="@string/pagekite_pref_httpsport"
+        	    android:key="httpsPortNumber" />
+        	<EditTextPreference
+	            android:name="@string/pagekite_pref_sshport"
+    	        android:summary="@string/pagekite_summary_sshport"
+        	    android:defaultValue="0"
+            	android:numeric="decimal"
+	            android:title="@string/pagekite_pref_sshport"
+    	        android:key="sshPortNumber" />
+    	</PreferenceCategory>
+        <CheckBoxPreference
+        	android:title="@string/pagekite_pref_wifiip"
             android:defaultValue="false"
-            android:summary="Connect to the WiFi IP address.  Otherwise, defaults to localhost."
+            android:summary="@string/pagekite_summary_wifiip"
             android:key="useWiFiIP" />
-    </PreferenceCategory>
+    </PreferenceScreen>
 </PreferenceScreen>

@@ -1,11 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">PageKite Testing</string>
+    <string name="app_name">PageKite</string>
     
-    <string name="ticker_text">Started PageKite Service</string>
+    <string name="ticker_text">Flying your kites ...</string>
     <string name="notification_title">PageKite</string>
-    <string name="pagekite_running">PageKite is running in the background.</string>
-    <string name="pagekite_stopped">PageKite is not running.</string>
+    <string name="view_log">View log</string>
+    <string name="help">Help</string>
+    
+    <string name="need_account_details">Account details are missing.</string>
+    <string name="need_service_ports">Help</string>
 
+    <string name="status_unknown">Unrecognized status!</string>
+    <string name="status_startup">Preparing kites...</string>
+    <string name="status_connect">Connecting to frontends...</string>
+    <string name="status_dyndns">Updating public DNS records...</string>
+    <string name="status_problems">Experiencing some turbulance, will retry.</string>
+    <string name="status_rejected">Rejected by front-end: wrong secret or out of quota?</string>
+    <string name="status_flying">Kites are flying and all is well.</string>
+    <string name="status_frontends">Frontends</string>
+    <string name="status_streams">Live clients</string>
+    
+    <string name="pagekite_pref_enable">Enable PageKite</string>
+    <string name="pagekite_stopped">Your kites are grounded.</string>
+    <string name="pagekite_pref_notification">Show Notification</string>
+    <string name="pagekite_summary_notification">Display status icon when active.</string>
+
+    <string name="pagekite_prefs_account">Account Details</string>
+    <string name="pagekite_pref_kitename">Kite Name</string>
+    <string name="pagekite_summary_kitename">Your kite\'s public DNS name.\nUsually something.pagekite.me.</string>
+    <string name="pagekite_default_kitename">SOMETHING.pagekite.me</string>
+    <string name="pagekite_pref_secret">Shared Secret</string>
+    <string name="pagekite_summary_secret">Your kite\'s shared secret.</string>
+    <string name="pagekite_pref_pagekitenet">Use PageKite.net</string>
+    <string name="pagekite_summary_pagekitenet">Uncheck this if you are running your own front-end relay.</string>
+
+    <string name="pagekite_prefs_localhost">Local Server Settings</string>
+    <string name="pagekite_info_localhost">(Set ports 0 to disable)</string>
+    <string name="pagekite_pref_httpport">HTTP Port</string>
+    <string name="pagekite_summary_httpport">The local port of your HTTP server.</string>
+    <string name="pagekite_pref_wsport">Websocket Port</string>
+    <string name="pagekite_summary_wsport">The local port of your Websocket server.</string>
+    <string name="pagekite_pref_httpsport">HTTPS Port</string>
+    <string name="pagekite_summary_httpsport">The local port of your HTTPS server.</string>
+    <string name="pagekite_pref_sshport">SSH Port</string>
+    <string name="pagekite_summary_sshport">The local port of your SSH server.</string>
+    <string name="pagekite_pref_wifiip">Use WiFi IP</string>
+    <string name="pagekite_summary_wifiip">Connect to the WiFi IP address instead of localhost, for compatibility with some "WiFi-only" servers.</string>
+    
 </resources>
