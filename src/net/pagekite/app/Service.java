@@ -31,6 +31,7 @@ public class Service extends android.app.Service {
 	private static int mStatusCounter = 0;
 	public static String mStatusText;
 	public static String mStatusTextMore;
+	public static boolean isRunning = false;
 
 	private boolean mKeepRunning = true;
 	private String mKiteName = null;
@@ -150,10 +151,11 @@ public class Service extends android.app.Service {
 		}
 	}
 
-	void setPrefActive(SharedPreferences prefs, boolean active) {
+	static void setPrefActive(SharedPreferences prefs, boolean active) {
 		Editor editor = prefs.edit();
 		editor.putBoolean("enablePageKite", active);
 		editor.commit();
+		isRunning = active;
 	}
 	
 	void announce(Integer serviceStatus, Integer pagekiteStatus) {

@@ -30,8 +30,13 @@ public class Preferences extends PreferenceActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        addPreferencesFromResource(R.xml.preferences);
 		mPrefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+		// Fix the checkbox if it is wrong.
+		if (mPrefs.getBoolean("enablePageKite", Service.isRunning) != Service.isRunning) {
+			Service.setPrefActive(mPrefs, Service.isRunning);
+		} 
+
+        addPreferencesFromResource(R.xml.preferences);
 
         updateStatus(false).setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
 			@Override
@@ -51,6 +56,7 @@ public class Preferences extends PreferenceActivity {
 				        findPreference("prefsAccount").setEnabled(false);
 				        findPreference("prefsLocalhost").setEnabled(false);
 				        findPreference("showNotification").setEnabled(false);
+				        findPreference("startOnBoot").setEnabled(false);
 						startService(new Intent(getBaseContext(), Service.class));
 					}
 					else {
@@ -149,6 +155,7 @@ public class Preferences extends PreferenceActivity {
         findPreference("prefsAccount").setEnabled(!status);
         findPreference("prefsLocalhost").setEnabled(!status);
         findPreference("showNotification").setEnabled(!status);
+        findPreference("startOnBoot").setEnabled(!status);
 		return enabled;
 	}
 	
