@@ -21,6 +21,7 @@
    <li><a href='#intro'>What is PageKite?</a></li>
    <li><a href='#start'>Getting Started</a></li>
    <li><a href='#apps'>Web and SSH Server Apps</a></li>
+   <li><a href='#faq'>FAQ: Common Problems</a></li>
    <li><a href='#help'>Community and Support</a></li>
    <li><a href='#credits'>License and Credits</a></li>
  </ul>
@@ -46,11 +47,12 @@
  <h4>Using pagekite.net</h4>
  <ol>
    <li>Install an SSH or Web Server app</li>
-   <li>Configure the ports in Local Server Settings and the server app so the
-       ports match.</li>
+   <li>Configure the ports in <b>Local Server Settings</b> and the server app
+       so the ports match.</li>
    <li><a href='https://pagekite.net/signup/'>Sign up for a pagekite.net
-       account</a>.</li>
-   <li>Configure the Account Details with your kite name and shared secret.</li>
+       account</a> and choose a kite name for your phone.</li>
+   <li>Configure the <b>Account Details</b> with your kite name and shared
+       secret.</li>
  </ol>
  <p>
    <b>Note:</b> if you are using a <tt>.pagekite.me</tt> name, your websites
@@ -76,7 +78,13 @@
    <li><a href='https://play.google.com/store/apps/details?id=berserker.android.apps.sshdroid'>SSHDroid</a>
       by <a href='http://berserkerdevel.blogspot.com/'>Berserker</a><br>
       Note that SSH clients must be <a href='http://pagekite.net/wiki/Howto/SshOverPageKite/'>configured
-      to use HTTP CONNECT</a>.  Works very well.
+      to use HTTP CONNECT</a>.  Works well.
+   </li>
+   <li><a href='https://play.google.com/store/apps/details?id=org.xeustechnologies.android.kws'>kWS</a> by
+       <a href='http://kamranzafar.org/android/'>Kamran</a><br>
+      A simple, lightweight web server for serving static files.  Works well, but
+      sometimes shuts itself off if WiFi is disabled, start up with WiFi off to
+      avoid this problem.
    </li>
    <li><a href='https://play.google.com/store/apps/details?id=de.fun2code.android.pawserver'>PAW Server</a> by
        <a href='http://www.fun2code.de/'>Jochen</a><br>
@@ -84,14 +92,46 @@
    </li>
    <li><a href='https://play.google.com/store/apps/details?id=com.pas.webcam'>IP Webcam</a> by
        <a href='http://ip-webcam.appspot.com/'>Pavel Khlebovich</a><br>
-      Motion JPEG streaming works, but the app generates some direct URL links
-      which do not work.</li>
-   <li><a href=''></a> <i>... more to come ...</i> <br></li>
+      Streaming video and static images work fine, but the app web server
+      generates some unusable direct URLs.</li>
+   <li><a href=''></a> <i>... your app here? ...</i> <br></li>
  </ul>
  <p>
    <b>Note:</b> None of the above apps are affiliated with PageKite or The
    Beanstalks Project.  We cannot make any guarantees about their security,
    quality or compatibility.
+ </p>
+
+
+ <br><a name='faq'></a><h2>FAQ: Common Problems</h2>
+
+ <h4>Web Server Only Works on WiFi</h4>
+ <p>
+   Unfortunately, some Android web server apps are designed with the assumption
+   that a phone on 3G is completely unreachable.  These apps turn themselves off
+   unless WiFi is active.  Sadly there is nothing we can do, except contact the
+   authors and ask them to fix their apps.
+ </p>
+ <p>
+   Most of these apps can be made to work with PageKite (on WiFi only) by
+   selecting <b>Use WiFi IP</b> in the <b>Local Server Settings</b>.
+ </p>
+
+ <h4>Front Page Works, But Links Fail</h4>
+ <p>
+   Some server apps generate links which include the phone's IP address,
+   which will not work unless your browser is on the same WiFi network.  The
+   only solution is to contact the author of the app and politely ask them to
+   fix it so it works with PageKite.
+ </p>
+
+ <h4>Servers Are Unreachable When Screen is Off</h4>
+ <p>
+   Many Android phones go almost completely to sleep when the screen is off,
+   to conserve battery power.  This can be adjusted to some extent in the phone
+   settings, but if you really want your phone to be always available as
+   a web server you will probably need to keep the phone plugged in most of the
+   time.
  </p>
 
 
