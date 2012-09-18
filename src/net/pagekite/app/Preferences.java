@@ -20,10 +20,10 @@ import android.widget.Toast;
 public class Preferences extends PreferenceActivity {
 
 	private SharedPreferences mPrefs;
-	private BroadcastReceiver mListener;
 	private IntentFilter mListenFilter;
 	private Integer mStatusCounter = 0;
 
+	private BroadcastReceiver mListener;
 	private boolean mListening = false;
 
 	@Override
@@ -89,27 +89,10 @@ public class Preferences extends PreferenceActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
+		updateStatus(false);
         if (!mListening) {
         	registerReceiver(mListener, mListenFilter);
             mListening = true;
-        }
-	}
-
-	@Override
-	protected void onStart() {
-		super.onStart();
-        if (!mListening) {
-        	registerReceiver(mListener, mListenFilter);
-            mListening = true;
-        }
-	}
-
-	@Override
-	protected void onStop() {
-		super.onStop();
-        if (mListening) {
-            unregisterReceiver(mListener);
-            mListening = false;
         }
 	}
 
@@ -178,6 +161,8 @@ public class Preferences extends PreferenceActivity {
         		startActivity(hi);
         		return true;
         	case R.id.view_log:
+        		Intent li = new Intent(this, LogViewer.class);
+        		startActivity(li);
         		return true;
         	default:
         		return super.onOptionsItemSelected(item);

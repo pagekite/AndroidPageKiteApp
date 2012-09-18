@@ -36,6 +36,8 @@
     <string name="pagekite_summary_secret">Your kite\'s shared secret.</string>
     <string name="pagekite_pref_pagekitenet">Use PageKite.net</string>
     <string name="pagekite_summary_pagekitenet">Uncheck this if you are running your own front-end relay.</string>
+    <string name="pagekite_pref_debugging">Enable debugging</string>
+    <string name="pagekite_summary_debugging">For developers, makes the app logs far more verbose.</string>
     
     <string name="pagekite_prefs_localhost">Local Server Settings</string>
     <string name="pagekite_info_localhost">(Set ports to 0 to disable)</string>

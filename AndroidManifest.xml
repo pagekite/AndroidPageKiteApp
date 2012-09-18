@@ -20,6 +20,7 @@
     		</intent-filter>
 		</receiver>
         <activity android:name=".HelpViewer" />
+        <activity android:name=".LogViewer" />
         <service android:name=".Service" android:exported="false" />
     </application>
 </manifest>

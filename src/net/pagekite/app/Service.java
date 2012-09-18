@@ -90,11 +90,12 @@ public class Service extends android.app.Service {
 			statusUpdateLoop();
 			boolean ok = true;
 			if (ok) {
+				boolean debug = prefs.getBoolean("enableDebugging", false);
 				if (prefs.getBoolean("usePageKiteNet", false)) {
-					ok = PageKiteAPI.initPagekiteNet(5, 10);
+					ok = PageKiteAPI.initPagekiteNet(5, 10, debug);
 				}
 				else {
-					ok = PageKiteAPI.init(5, 5, 10, null);
+					ok = PageKiteAPI.init(5, 5, 10, null, debug);
 				}
 				problem = "Init failed.";
 			}
@@ -169,6 +170,7 @@ public class Service extends android.app.Service {
 	void updateNotification(boolean notify) {
 		if (mNotification != null) {
 			Intent nfInt = new Intent(this, Preferences.class);
+			nfInt.addFlags(Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
 			mNotification.setLatestEventInfo(this,
 					mKiteName,
 					(mStatusTextMore == null) ? mStatusText : mStatusTextMore,

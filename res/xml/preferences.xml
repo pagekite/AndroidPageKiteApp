@@ -25,6 +25,11 @@
             android:defaultValue="true"
             android:summary="@string/pagekite_summary_pagekitenet"
             android:key="usePageKiteNet" />
+		<CheckBoxPreference
+        	android:title="@string/pagekite_pref_debugging"
+            android:defaultValue="false"
+            android:summary="@string/pagekite_summary_debugging"
+            android:key="enableDebugging" />
 	</PreferenceScreen>
 	<PreferenceScreen android:key="prefsLocalhost"
 	                  android:title="@string/pagekite_prefs_localhost">
