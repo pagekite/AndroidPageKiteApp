@@ -30,7 +30,8 @@
     
     <string name="pagekite_prefs_account">Account Details</string>
     <string name="pagekite_pref_kitename">Kite Name</string>
-    <string name="pagekite_summary_kitename">Your kite\'s public DNS name.\nUsually something.pagekite.me.</string>
+    <string name="pagekite_summary_kitename">Your kite\'s public DNS name.</string>
+    <string name="pagekite_explain_kitename">Usually something.pagekite.me.</string>
     <string name="pagekite_default_kitename">SOMETHING.pagekite.me</string>
     <string name="pagekite_pref_secret">Shared Secret</string>
     <string name="pagekite_summary_secret">Your kite\'s shared secret.</string>
@@ -42,13 +43,13 @@
     <string name="pagekite_prefs_localhost">Local Server Settings</string>
     <string name="pagekite_info_localhost">(Set ports to 0 to disable)</string>
     <string name="pagekite_pref_httpport">HTTP Port</string>
-    <string name="pagekite_summary_httpport">The local port of your HTTP server.</string>
+    <string name="pagekite_summary_httpport">The local port of your HTTP server</string>
     <string name="pagekite_pref_wsport">Websocket Port</string>
-    <string name="pagekite_summary_wsport">The local port of your Websocket server.</string>
+    <string name="pagekite_summary_wsport">The local port of your Websocket server</string>
     <string name="pagekite_pref_httpsport">HTTPS Port</string>
-    <string name="pagekite_summary_httpsport">The local port of your HTTPS server.</string>
+    <string name="pagekite_summary_httpsport">The local port of your HTTPS server</string>
     <string name="pagekite_pref_sshport">SSH Port</string>
-    <string name="pagekite_summary_sshport">The local port of your SSH server.</string>
+    <string name="pagekite_summary_sshport">The local port of your SSH server</string>
     <string name="pagekite_pref_wifiip">Use WiFi IP</string>
     <string name="pagekite_summary_wifiip">Connect to the WiFi IP address instead of localhost, for compatibility with some "WiFi-only" servers.</string>
     

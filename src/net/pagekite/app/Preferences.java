@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.CheckBoxPreference;
 import android.preference.EditTextPreference;
 import android.preference.Preference;
@@ -15,6 +16,7 @@ import android.preference.PreferenceActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 public class Preferences extends PreferenceActivity {
@@ -23,6 +25,7 @@ public class Preferences extends PreferenceActivity {
 	private IntentFilter mListenFilter;
 	private Integer mStatusCounter = 0;
 
+	private Handler mHandler;
 	private BroadcastReceiver mListener;
 	private boolean mListening = false;
 
@@ -68,7 +71,31 @@ public class Preferences extends PreferenceActivity {
 				return false;
 			}
         });
-        
+
+        mHandler = new Handler();
+        OnPreferenceChangeListener opcl = new OnPreferenceChangeListener() {
+			@Override
+			public boolean onPreferenceChange(Preference arg0, Object arg1) {
+		        new Thread(new Runnable() {
+		            @Override
+		            public void run() {
+		                try {Thread.sleep(100);} catch (InterruptedException e) {}
+		                mHandler.post(new Runnable() {
+		                    @Override
+		                    public void run() { updateSummaries(); }
+		                });
+		            }
+		        }).start();
+				return true;
+			}
+        };
+        findPreference("kiteName").setOnPreferenceChangeListener(opcl);
+        findPreference("httpPortNumber").setOnPreferenceChangeListener(opcl);
+        findPreference("httpsPortNumber").setOnPreferenceChangeListener(opcl);
+        findPreference("websocketPortNumber").setOnPreferenceChangeListener(opcl);
+        findPreference("sshPortNumber").setOnPreferenceChangeListener(opcl);
+		updateSummaries();
+
         mListener = new BroadcastReceiver() {
 			@Override
 			public void onReceive(Context arg0, Intent event) {
@@ -113,8 +140,18 @@ public class Preferences extends PreferenceActivity {
 		String kiteName = ((EditTextPreference) findPreference("kiteName")).getText();
 		String kiteSecret = ((EditTextPreference) findPreference("kiteSecret")).getText();
 		return ((kiteName != null) && (kiteSecret != null) &&
-                (kiteName != "") && (kiteSecret != "") &&
+                (kiteName.length() > 0) && (kiteSecret.length() > 0) &&
                 (kiteName.toLowerCase() != getText(R.string.pagekite_default_kitename).toString().toLowerCase()));
+	}
+	
+	protected void updateSummaries() {
+		updateStringPreference("kiteName", R.string.pagekite_summary_kitename,
+                R.string.pagekite_default_kitename,
+                R.string.pagekite_explain_kitename);
+		updateIntegerPreference("httpPortNumber", R.string.pagekite_summary_httpport);
+		updateIntegerPreference("httpsPortNumber", R.string.pagekite_summary_httpsport);
+		updateIntegerPreference("websocketPortNumber", R.string.pagekite_summary_wsport);
+		updateIntegerPreference("sshPortNumber", R.string.pagekite_summary_sshport);
 	}
 	
 	protected CheckBoxPreference updateStatus(boolean changing) {
@@ -140,6 +177,31 @@ public class Preferences extends PreferenceActivity {
         findPreference("showNotification").setEnabled(!status);
         findPreference("startOnBoot").setEnabled(!status);
 		return enabled;
+	}
+
+	public void updateStringPreference(String pname, int
+			                           textid, int defid, int hintid) {
+		EditTextPreference p = (EditTextPreference) findPreference(pname);
+		String text = p.getText();
+		if ((text != null) && (text.length() > 0) && (text != getText(defid))) {
+			p.setSummary(getText(textid) + "\n" + text);
+		}
+		else {
+			p.setSummary(getText(textid) + "\n" + getText(hintid));
+		}
+	}
+	
+
+	public void updateIntegerPreference(String pname, int textid) {
+		EditTextPreference p = (EditTextPreference) findPreference(pname);
+		String text = p.getText();
+		int value = (text != null) ? Integer.parseInt(text) : 0;
+		if (value != 0) {
+			p.setSummary(getText(textid) + " = " + value + ".");
+		}
+		else {
+			p.setSummary(getText(textid) + ".");
+		}
 	}
 	
     public static final int MENU_ABOUT = Menu.FIRST;
