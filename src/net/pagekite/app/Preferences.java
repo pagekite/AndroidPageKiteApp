@@ -16,7 +16,6 @@ import android.preference.PreferenceActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.ScrollView;
 import android.widget.Toast;
 
 public class Preferences extends PreferenceActivity {

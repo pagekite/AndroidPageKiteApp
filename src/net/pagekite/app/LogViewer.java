@@ -8,9 +8,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.Layout;
-import android.text.method.ScrollingMovementMethod;
-import android.webkit.WebView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
