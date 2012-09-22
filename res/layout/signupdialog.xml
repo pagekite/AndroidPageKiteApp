@@ -1,0 +1,31 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:id="@+id/layout_signup"
+              android:padding="5dp"
+              >
+    <EditText android:id="@+id/signup_email"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+          	  android:inputType="textEmailAddress"
+          	  android:hint="Your E-Mail Address"
+              />
+    <EditText android:id="@+id/signup_kitename"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:inputType="textUri"
+        	  android:hint="YOURNAME.pagekite.me"
+              />
+    <TextView android:id="@+id/login_howto"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:text="\nIf you have an account, log in:"
+              />
+    <EditText android:id="@+id/signup_password"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:inputType="textPassword"
+        	  android:hint="Pagekite.net password"
+              />
+</LinearLayout>

@@ -2,8 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
     <item android:id="@+id/help"
           android:icon="@android:drawable/ic_menu_help"
-          android:title="@string/help"/>
+          android:title="@string/menu_help"/>
     <item android:id="@+id/view_log"
           android:icon="@android:drawable/ic_menu_agenda"
-          android:title="@string/view_log"/>
+          android:title="@string/menu_view_log"/>
+    <item android:id="@+id/signup"
+          android:icon="@android:drawable/ic_menu_add"
+          android:title="@string/menu_signup"/>
 </menu>

@@ -5,9 +5,11 @@
 
     <string name="ticker_text">Flying your kites ...</string>
     <string name="notification_title">PageKite</string>
-    <string name="view_log">View log</string>
-    <string name="help">Help</string>
-
+    
+    <string name="menu_view_log">View log</string>
+    <string name="menu_help">Help</string>
+    <string name="menu_signup">Sign up</string>
+    
     <string name="need_account_details">Account details are missing.</string>
     <string name="need_service_ports">Help</string>
 
@@ -18,6 +20,7 @@
     <string name="status_problems">Experiencing some turbulance, will retry.</string>
     <string name="status_rejected">Rejected by front-end: wrong secret or out of quota?</string>
     <string name="status_flying">Kites are flying and all is well.</string>
+    <string name="status_no_network">Idle: Waiting for the network.</string>
     <string name="status_frontends">Frontends</string>
     <string name="status_streams">Live clients</string>
     

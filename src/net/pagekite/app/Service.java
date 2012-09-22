@@ -4,19 +4,25 @@ import net.pagekite.lib.PageKiteAPI;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.net.ConnectivityManager;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Handler;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.widget.Toast;
 
 public class Service extends android.app.Service {
 
+	private static final String TAG = "PageKite.Service";
+	
 	public static final String STATUS_UPDATE_INTENT = "net.pagekite.lib.STATUS_UPDATE";
 	public static final String STATUS_SERVICE = "svc";
 	public static final String STATUS_PAGEKITE = "pagekite";
@@ -36,12 +42,13 @@ public class Service extends android.app.Service {
 	private boolean mKeepRunning = true;
 	private String mKiteName = null;
 	private Handler mHandler = null;
-	private NotificationManager mNotificationManager;
+	private NotificationManager mNotificationManager = null;
+	private BroadcastReceiver mConnChangeReceiver = null;
 
 	public Service() {
 		mHandler = new Handler();
 	}
-
+	
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
 	    doStartup();
@@ -92,10 +99,11 @@ public class Service extends android.app.Service {
 			if (ok) {
 				boolean debug = prefs.getBoolean("enableDebugging", false);
 				if (prefs.getBoolean("usePageKiteNet", false)) {
-					ok = PageKiteAPI.initPagekiteNet(5, 10, debug);
+					ok = PageKiteAPI.initPagekiteNet(5, 30, debug);
 				}
 				else {
-					ok = PageKiteAPI.init(5, 5, 10, null, debug);
+					ok = (PageKiteAPI.init(5, 2, 30, null, debug) &&
+					      PageKiteAPI.addFrontend(mKiteName, 443));
 				}
 				problem = "Init failed.";
 			}
@@ -131,6 +139,7 @@ public class Service extends android.app.Service {
 							System.currentTimeMillis());
 					updateStatusText();
 					updateNotification(false);
+					startConnChangeReceiver();
 					startForeground(NOTIFICATION_ID, mNotification);
 				}
 				else {
@@ -150,6 +159,20 @@ public class Service extends android.app.Service {
 				announce(STATUS_SERVICE_STOPPED, 0);
 			}
 		}
+	}
+	
+	void startConnChangeReceiver() {
+		mConnChangeReceiver = new BroadcastReceiver() {
+			@Override
+			public void onReceive(Context context, Intent intent) {
+				boolean nonet = intent.getBooleanExtra(ConnectivityManager.EXTRA_NO_CONNECTIVITY, false);
+				Log.d(TAG, "Connectivity state: " + nonet);
+				PageKiteAPI.setHaveNetwork(!nonet);
+				if (!nonet) PageKiteAPI.tick();
+			}
+		};
+		registerReceiver(mConnChangeReceiver,
+				new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
 	}
 
 	static void setPrefActive(SharedPreferences prefs, boolean active) {
@@ -186,7 +209,7 @@ public class Service extends android.app.Service {
 			}
 		}
 	}
-	
+
 	boolean updateStatusText() {
 		String oldStatusText = mStatusText + mStatusTextMore;
 		mStatusTextMore = null;
@@ -205,6 +228,9 @@ public class Service extends android.app.Service {
 			break;
 		case PageKiteAPI.PK_STATUS_REJECTED:
 			mStatusText = getText(R.string.status_rejected).toString();
+			break;
+		case PageKiteAPI.PK_STATUS_NO_NETWORK:
+			mStatusText = getText(R.string.status_no_network).toString();
 			break;
 		case PageKiteAPI.PK_STATUS_FLYING:
 			mStatusText = getText(R.string.status_flying).toString();
@@ -247,6 +273,7 @@ public class Service extends android.app.Service {
 	public void onDestroy() {
 		mKeepRunning = false;
 		mNotification = null;
+		if (mConnChangeReceiver != null) unregisterReceiver(mConnChangeReceiver);
 		stopForeground(true);
 		if (PageKiteAPI.stop()) {
 			Toast.makeText(getBaseContext(), "Stopped PageKite.",
@@ -261,9 +288,9 @@ public class Service extends android.app.Service {
 		announce(STATUS_SERVICE_STOPPED, 0);
 	}
 
+	
 	@Override
 	public IBinder onBind(Intent arg0) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 }
