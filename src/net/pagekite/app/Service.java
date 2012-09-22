@@ -1,6 +1,7 @@
 package net.pagekite.app;
 
 import net.pagekite.lib.PageKiteAPI;
+import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -15,6 +16,7 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Handler;
 import android.os.IBinder;
+import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
@@ -23,6 +25,7 @@ public class Service extends android.app.Service {
 
 	private static final String TAG = "PageKite.Service";
 	
+	public static final String TICK_INTENT = "net.pagekite.lib.TICK";
 	public static final String STATUS_UPDATE_INTENT = "net.pagekite.lib.STATUS_UPDATE";
 	public static final String STATUS_SERVICE = "svc";
 	public static final String STATUS_PAGEKITE = "pagekite";
@@ -44,11 +47,29 @@ public class Service extends android.app.Service {
 	private Handler mHandler = null;
 	private NotificationManager mNotificationManager = null;
 	private BroadcastReceiver mConnChangeReceiver = null;
+	private BroadcastReceiver mTimerReceiver = null;
 
 	public Service() {
 		mHandler = new Handler();
-	}
-	
+		mConnChangeReceiver = new BroadcastReceiver() {
+			@Override
+			public void onReceive(Context context, Intent intent) {
+				boolean nonet = intent.getBooleanExtra(ConnectivityManager.EXTRA_NO_CONNECTIVITY, false);
+				Log.d(TAG, "Connectivity state: " + nonet);
+				PageKiteAPI.setHaveNetwork(!nonet);
+				if (!nonet) PageKiteAPI.tick();
+				setInexactTimer(!nonet);
+			}
+		};
+        mTimerReceiver = new BroadcastReceiver() {
+			@Override
+			public void onReceive(Context arg0, Intent event) {
+				Log.d(TAG, "Inexact timer fired, sending tick.");
+				PageKiteAPI.tick();
+			}
+        };
+    }
+
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
 	    doStartup();
@@ -139,7 +160,7 @@ public class Service extends android.app.Service {
 							System.currentTimeMillis());
 					updateStatusText();
 					updateNotification(false);
-					startConnChangeReceiver();
+					startReceivers();
 					startForeground(NOTIFICATION_ID, mNotification);
 				}
 				else {
@@ -161,18 +182,29 @@ public class Service extends android.app.Service {
 		}
 	}
 	
-	void startConnChangeReceiver() {
-		mConnChangeReceiver = new BroadcastReceiver() {
-			@Override
-			public void onReceive(Context context, Intent intent) {
-				boolean nonet = intent.getBooleanExtra(ConnectivityManager.EXTRA_NO_CONNECTIVITY, false);
-				Log.d(TAG, "Connectivity state: " + nonet);
-				PageKiteAPI.setHaveNetwork(!nonet);
-				if (!nonet) PageKiteAPI.tick();
-			}
-		};
+	void startReceivers() {
 		registerReceiver(mConnChangeReceiver,
 				new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+		registerReceiver(mTimerReceiver,
+				new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+	}
+
+	void stopReceivers() {
+		setInexactTimer(false);
+		unregisterReceiver(mConnChangeReceiver);
+		unregisterReceiver(mTimerReceiver);
+	}
+
+	void setInexactTimer(boolean on) {
+		Intent i = new Intent(TICK_INTENT);
+		PendingIntent pi = PendingIntent.getService(this, 0, i, 0);
+		AlarmManager am = (AlarmManager) getSystemService(ALARM_SERVICE);
+		am.cancel(pi); // cancel any existing alarms
+		if (on) {
+			am.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+				    SystemClock.elapsedRealtime() + AlarmManager.INTERVAL_FIFTEEN_MINUTES,
+				    AlarmManager.INTERVAL_FIFTEEN_MINUTES, pi);
+		}
 	}
 
 	static void setPrefActive(SharedPreferences prefs, boolean active) {
@@ -273,7 +305,7 @@ public class Service extends android.app.Service {
 	public void onDestroy() {
 		mKeepRunning = false;
 		mNotification = null;
-		if (mConnChangeReceiver != null) unregisterReceiver(mConnChangeReceiver);
+		stopReceivers();
 		stopForeground(true);
 		if (PageKiteAPI.stop()) {
 			Toast.makeText(getBaseContext(), "Stopped PageKite.",
