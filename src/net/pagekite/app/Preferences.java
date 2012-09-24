@@ -18,6 +18,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.CheckBoxPreference;
@@ -43,7 +44,7 @@ public class Preferences extends PreferenceActivity {
 	private final static int DIALOG_SIGNUP_DETAILS = 3;
 	private final static int DIALOG_SIGNUP_WORKING = 4;
 	private final static int DIALOG_SIGNUP_RESULT = 5;
-	
+
 	private final static String TAG = "PageKite.Preferences";
 
 	private SharedPreferences mPrefs;
@@ -251,9 +252,49 @@ public class Preferences extends PreferenceActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
     	return doMenuItem(item.getItemId());
     }
+
+    public String getKiteURL() {
+		String kiteName = mPrefs.getString("kiteName", null);
+		String kiteURL = null;
+		if (kiteName != null && Service.isRunning) {
+			if (Integer.parseInt(mPrefs.getString("httpsPortNumber", "0")) > 0) {
+				kiteURL = "https://" + kiteName;
+			}
+			else if (Integer.parseInt(mPrefs.getString("httpPortNumber", "0")) > 0) {
+				if (kiteName.toLowerCase().endsWith(".pagekite.me")) {
+					kiteURL = "https://" + kiteName;
+				} else {
+					kiteURL = "http://" + kiteName;
+				}
+			}
+		}
+    	return kiteURL;
+    }
     
     public boolean doMenuItem(int itemId) {
     	switch (itemId) {
+    		case R.id.open_url:
+    		case R.id.share_url:
+    			String kiteURL = getKiteURL();
+    			if (kiteURL != null) {
+    				Intent i = new Intent((itemId == R.id.share_url) ? 
+        								  Intent.ACTION_SEND : Intent.ACTION_DEFAULT);
+    				if (itemId == R.id.open_url) {
+    					i.setData(Uri.parse(kiteURL));
+    				}
+    				else {
+        				i.setType("text/plain");
+        				i.putExtra(Intent.EXTRA_SUBJECT, "My PageKite URL");
+        				i.putExtra(Intent.EXTRA_TEXT, kiteURL);
+    				}
+        			startActivity(Intent.createChooser(i, getText(R.string.menu_share)));
+    			}
+    			else {
+					Toast.makeText(getBaseContext(),
+							getText(R.string.need_flying_httpkite),
+							Toast.LENGTH_LONG).show();
+    			}
+    			return true;
         	case R.id.help:
         		Intent hi = new Intent(this, HelpViewer.class);
         		hi.putExtra(HelpViewer.INTENT_HELP_PAGE, HelpViewer.HELP_ABOUT);

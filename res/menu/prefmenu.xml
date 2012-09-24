@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:id="@+id/open_url"
+          android:icon="@android:drawable/ic_menu_view"
+          android:title="@string/menu_open"/>
+    <item android:id="@+id/share_url"
+          android:icon="@android:drawable/ic_menu_share"
+          android:title="@string/menu_share"/>
     <item android:id="@+id/help"
           android:icon="@android:drawable/ic_menu_help"
           android:title="@string/menu_help"/>

@@ -283,11 +283,7 @@ public class Service extends android.app.Service {
 	        	mKeepRunning = true;
 	    		while (mKeepRunning) {
 	    			PageKiteAPI.poll(3600);
-	    			try {
-	    				Thread.sleep(250);
-	    			} catch (InterruptedException e) {
-	    				// Ignore
-	    			}
+	    			try { Thread.sleep(250); } catch (InterruptedException e) { }
 	    			mHandler.post(new Runnable() {
 	    				public void run() {
 	    					if (updateStatusText()) {
@@ -300,21 +296,14 @@ public class Service extends android.app.Service {
 	        }
 	    }).start();
 	}
-	
+
 	@Override
 	public void onDestroy() {
 		mKeepRunning = false;
 		mNotification = null;
 		stopReceivers();
+		PageKiteAPI.stop();
 		stopForeground(true);
-		if (PageKiteAPI.stop()) {
-			Toast.makeText(getBaseContext(), "Stopped PageKite.",
-				       Toast.LENGTH_LONG).show();
-		}
-		else {
-			// Don't complain about this, it probably just means we were
-			// stopped already.
-		}
 		setPrefActive(PreferenceManager.getDefaultSharedPreferences(getBaseContext()),
 				      false);
 		announce(STATUS_SERVICE_STOPPED, 0);
