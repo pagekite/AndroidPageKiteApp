@@ -272,22 +272,28 @@ public class Preferences extends PreferenceActivity {
     }
     
     public boolean doMenuItem(int itemId) {
+    	String kiteURL;
+    	Intent ntnt;
     	switch (itemId) {
     		case R.id.open_url:
-    		case R.id.share_url:
-    			String kiteURL = getKiteURL();
+    			kiteURL = getKiteURL();
     			if (kiteURL != null) {
-    				Intent i = new Intent((itemId == R.id.share_url) ? 
-        								  Intent.ACTION_SEND : Intent.ACTION_DEFAULT);
-    				if (itemId == R.id.open_url) {
-    					i.setData(Uri.parse(kiteURL));
-    				}
-    				else {
-        				i.setType("text/plain");
-        				i.putExtra(Intent.EXTRA_SUBJECT, "My PageKite URL");
-        				i.putExtra(Intent.EXTRA_TEXT, kiteURL);
-    				}
-        			startActivity(Intent.createChooser(i, getText(R.string.menu_share)));
+    				startActivity(new Intent(Intent.ACTION_DEFAULT, Uri.parse(kiteURL)));
+    			}
+    			else {
+					Toast.makeText(getBaseContext(),
+							getText(R.string.need_flying_httpkite),
+							Toast.LENGTH_LONG).show();
+    			}
+				return true;
+    		case R.id.share_url:
+    			kiteURL = getKiteURL();
+    			if (kiteURL != null) {
+     				ntnt = new Intent(Intent.ACTION_SEND);
+     				ntnt.setType("text/plain");
+            		ntnt.putExtra(Intent.EXTRA_SUBJECT, "My PageKite URL");
+            		ntnt.putExtra(Intent.EXTRA_TEXT, kiteURL);
+                	startActivity(Intent.createChooser(ntnt, getText(R.string.menu_share)));
     			}
     			else {
 					Toast.makeText(getBaseContext(),
@@ -296,13 +302,12 @@ public class Preferences extends PreferenceActivity {
     			}
     			return true;
         	case R.id.help:
-        		Intent hi = new Intent(this, HelpViewer.class);
-        		hi.putExtra(HelpViewer.INTENT_HELP_PAGE, HelpViewer.HELP_ABOUT);
-        		startActivity(hi);
+        		ntnt = new Intent(this, HelpViewer.class);
+        		ntnt.putExtra(HelpViewer.INTENT_HELP_PAGE, HelpViewer.HELP_ABOUT);
+        		startActivity(ntnt);
         		return true;
         	case R.id.view_log:
-        		Intent li = new Intent(this, LogViewer.class);
-        		startActivity(li);
+        		startActivity(new Intent(this, LogViewer.class));
         		return true;
         	case R.id.signup:
         		if (kitesAreConfigured()) {
