@@ -34,8 +34,8 @@
    Internet connectivity.
  </p>
  <p>
-   The app connects one or more local server apps to a remote frontend relay
-   server, either one provided by <a href='http://pagekite.net/'>pagekite.net</a>
+   The app connects one or more server apps to a remote frontend relay server,
+   either one provided by <a href='http://pagekite.net/'>pagekite.net</a>
    or one you <a href='http://pagekite.org/'>run on your own server</a>.
  </p>
  <p>
@@ -43,31 +43,33 @@
    to work</a> with PageKite.
  </p>
 
+
  <br><a name='start'></a><h2>Getting Started</h2>
  <h4>Using pagekite.net</h4>
  <ol>
    <li>Install an SSH or Web Server app</li>
    <li>Configure the ports in <b>Local Server Settings</b> and the server app
        so the ports match.</li>
-   <li><a href='https://pagekite.net/signup/'>Sign up for a pagekite.net
-       account</a> and choose a kite name for your phone.</li>
-   <li>Configure the <b>Account Details</b> with your kite name and shared
-       secret.</li>
+   <li><b>Sign up</b> for a pagekite.net account and choose a name for your
+       phone, using the built-in signup (or login) option.</li>
  </ol>
  <p>
    <b>Note:</b> if you are using a <tt>.pagekite.me</tt> name, your websites
    will automatically have SSL encryption support!  Just use the
    <tt>https://</tt> prefix instead of plain HTTP.
  </p>
-
-
  <h4>Running your own relay</h4>
- <p>
-   This process is more or less the same as above, except instead of signing
-   up for an account you will need to purchase your own domain and install
-   the <a href='http://pagekite.org/'>Open Source <tt>pagekite.py</tt>
-   relay software</a> on a computer or VPS with a public IP address.
- </p>
+ <ol>
+   <li>Install an SSH or Web Server app</li>
+   <li>Configure the ports in <b>Local Server Settings</b> and the server app
+       so the ports match.</li>
+   <li>Install the <a href='http://pagekite.org/'>Open Source <tt>pagekite.py</tt>
+       relay software</a> on a computer or VPS with a public IP address and
+       domain name.
+   <li>Configure the <b>Account Details</b> with your relay machine's public
+       domain name, your shared secret and uncheck the pagekite.net option.</li>
+ </ol>
+
 
  <br><a name='apps'></a><h2>Web and SSH Server Apps</h2>
  <p>
@@ -104,7 +106,6 @@
 
 
  <br><a name='faq'></a><h2>FAQ: Common Problems</h2>
-
  <h4>Web Server Only Works on WiFi</h4>
  <p>
    Unfortunately, some Android web server apps are designed with the assumption
@@ -124,7 +125,6 @@
    only solution is to contact the author of the app and politely ask them to
    fix it so it works with PageKite.
  </p>
-
  <h4>Servers Are Unreachable When Screen is Off</h4>
  <p>
    Many Android phones go almost completely to sleep when the screen is off,
@@ -174,11 +174,26 @@
    Commercial support for this code, as well as managed frontend relay service,
    are available from <a href='https://pagekite.net/'>pagekite.net</a>.
  </p>
+ <h4>Acknowledgements</h4>
  <p>
    Development of PageKite for Android was partially sponsored by
    <a href='http://www.surfnet.nl/'>SURFnet</a> and the
    <a href='http://www.rannis.is/english/funding/technology-development-fund/'
      >Icelandic Technology Development fund</a>.
+ </p>
+ <p>
+   PageKite for Android includes code from the following Open Source projects:
+ </p>
+ <ul>
+   <li><a href="https://github.com/pagekite/libpagekite">libpagekite</a></li>
+   <li><a href="http://code.google.com/p/android-xmlrpc/">Android-XMLRPC</a></li>
+ </ul>
+ <p>
+   Also, this product includes software developed by the OpenSSL Project
+   for use in the OpenSSL Toolkit
+   (<a href='http://www.openssl.org/'>http://www.openssl.org/</a>), as ported
+   to Android by <a href="https://guardianproject.info/">the Guardian
+   Project</a>.
  </p>
 
 </div></body></html>
