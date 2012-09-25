@@ -6,10 +6,15 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class LogViewer extends Activity {
 
@@ -59,6 +64,34 @@ public class LogViewer extends Activity {
 		mLogView.setText(PageKiteAPI.getLog());
 		scrollDown();
 	}
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+    	MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.logmenu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+    	return doMenuItem(item.getItemId());
+    }
+
+    public boolean doMenuItem(int itemId) {
+    	String kiteURL;
+    	Intent ntnt;
+    	switch (itemId) {
+    		case R.id.menu_send_log:
+ 				ntnt = new Intent(Intent.ACTION_SENDTO);
+ 				ntnt.setData(Uri.parse("mailto:"+PageKiteAPI.PAGEKITE_NET_EMAIL));
+        		ntnt.putExtra(Intent.EXTRA_SUBJECT, "PageKite App Log");
+        		ntnt.putExtra(Intent.EXTRA_TEXT, PageKiteAPI.getLog());
+            	startActivity(Intent.createChooser(ntnt, getText(R.string.menu_send_log)));
+    			return true;
+        	default:
+        		return false;
+    	}
+    }
 
 	@Override
 	protected void onResume() {

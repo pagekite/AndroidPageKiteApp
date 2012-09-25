@@ -3,7 +3,7 @@
 
     <string name="app_name">PageKite</string>
 
-    <string name="ticker_text">Flying your kites ...</string>
+    <string name="ticker_text">Flying your kites...</string>
     <string name="notification_title">PageKite</string>
     
     <string name="menu_open">Open URL</string>
@@ -11,7 +11,8 @@
     <string name="menu_view_log">View log</string>
     <string name="menu_help">Help</string>
     <string name="menu_signup">Sign up</string>
-    
+    <string name="menu_send_log">Send log</string>
+
     <string name="need_account_details">Account details are missing.</string>
     <string name="need_service_ports">Help</string>
     <string name="need_flying_httpkite">No HTTP kites are flying at the moment.</string>
