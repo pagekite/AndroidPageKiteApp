@@ -20,6 +20,7 @@
  <ul>
    <li><a href='#intro'>What is PageKite?</a></li>
    <li><a href='#start'>Getting Started</a></li>
+   <li><a href='#open'>Accessing Your Servers</a></li>
    <li><a href='#apps'>Web and SSH Server Apps</a></li>
    <li><a href='#faq'>FAQ: Common Problems</a></li>
    <li><a href='#help'>Community and Support</a></li>
@@ -69,6 +70,26 @@
    <li>Configure the <b>Account Details</b> with your relay machine's public
        domain name, your shared secret and uncheck the pagekite.net option.</li>
  </ol>
+
+
+ <br><a name='open'></a><h2>Accessing Your Servers</h2>
+ <p>
+   Once you have PageKite and a server app up and running, you should be able
+   to access your servers from anywhere.  Note that this may pose a security
+   risk, so take care to configure secure passwords or turn PageKite off when
+   not in use.
+ </p>
+ <p>
+   For HTTP or HTTPS servers, using a normal web browser and simply type
+   your chosen kite name into the browser's address bar, or select the
+   <b>Open URL</b> or <b>Share URL</b> options from the app's menu.
+ </p>
+ <p>
+   For SSH access, you will need to configure your SSH client to use your
+   kite name as an HTTP Proxy (on port 443).  See
+   <a href='http://pagekite.net/wiki/Howto/SshOverPageKite/'>the pagekite.net
+   wiki for details</a>.
+ </p>
 
 
  <br><a name='apps'></a><h2>Web and SSH Server Apps</h2>
