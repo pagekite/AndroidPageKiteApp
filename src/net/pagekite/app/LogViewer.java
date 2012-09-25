@@ -14,7 +14,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class LogViewer extends Activity {
 
@@ -78,7 +77,6 @@ public class LogViewer extends Activity {
     }
 
     public boolean doMenuItem(int itemId) {
-    	String kiteURL;
     	Intent ntnt;
     	switch (itemId) {
     		case R.id.menu_send_log:
