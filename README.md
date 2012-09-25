@@ -36,12 +36,12 @@ online](http://htmlpreview.github.com/?https://github.com/pagekite/AndroidPageKi
 
 ## Hacking Howto ##
 
-You will need both the Android SDK and the Android NDK to build PageKite.
+You will need both the Android SDK *and* the Android NDK to build PageKite.
 
 PageKite for Android depends on
 [libpagekite](https://github.com/pagekite/libpagekite),
-which in turn depends on this version of
-[OpenSSL](https://github.com/guardianproject/openssl-android).
+which in turn depends on [this version of
+OpenSSL](https://github.com/guardianproject/openssl-android).
 
 The following steps should suffice to check out all the code you need and
 configure the tree for building:
@@ -63,8 +63,9 @@ To build libpagekite:
 
     cd PageKiteApp
     cd AndroidPageKiteApp
+    export NDK_PROJECT_PATH=/path/to/android-ndk
     make -f jni/Makefile android
-    ...
+    # ...
 
 (If the build fails, please consult the
 [libpagekite](https://github.com/pagekite/libpagekite) documentation for
