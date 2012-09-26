@@ -22,8 +22,9 @@ servers to the public web.
 
 ## Getting started ##
 
-The app should be available for download from Google Play or [directly from
-pagekite.net](https://pagekite.net/pk/android/PageKiteApp.apk).
+The app should be available for [download from Google
+Play](https://play.google.com/store/apps/details?id=net.pagekite.app) or
+[directly from pagekite.net](https://pagekite.net/pk/android/PageKiteApp.apk).
 
 When first run the app will prompt the user to sign up or log in to their
 [pagekite.net](https://pagekite.net/) account, but this dialog can be

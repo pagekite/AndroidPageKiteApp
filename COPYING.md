@@ -1,7 +1,7 @@
 ## License ##
 
-This code (libpagekite) may be used according to the terms of the following
-licenses:
+This code (PageKite for Android) may be used according to the terms of the
+following licenses:
 
    * The GNU Affero General Public License, version 3.
      See the file AGPLv3.txt for details.
@@ -18,7 +18,7 @@ additional conditions:
       interface of the Software uses the word "PageKite" to identify
       these settings.
 
-This code (libpagekite) may be combined or redistributed along with
+This code (PageKite for Android) may be combined or redistributed along with
 Software that meets one or both of the above conditions, according to the
 terms of the GNU Lesser General Public License.  See the file LGPLv3.txt
 for details.
@@ -30,7 +30,7 @@ linking, and/or using OpenSSL is allowed.
 ### Why? ###
 
 The intent of the above alternate license clause, is to allow developers of
-proprietary software (including Android apps) to use libpagekite as part of
+proprietary software (including Android apps) to use this code as part of
 their products, as long as they EITHER support the upstream PageKite project
 OR respect their users' freedom enough not to obfuscate the connection
 settings or lock them in to one specific service provider.
