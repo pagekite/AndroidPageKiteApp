@@ -27,7 +27,7 @@
     <string name="status_no_network">Idle: Waiting for the network.</string>
     <string name="status_frontends">Frontends</string>
     <string name="status_streams">Live clients</string>
-    
+
     <string name="pagekite_pref_enable">Enable PageKite</string>
     <string name="pagekite_stopped">Your kites are ready to fly.</string>
     <string name="pagekite_pref_notification">Show Notification</string>

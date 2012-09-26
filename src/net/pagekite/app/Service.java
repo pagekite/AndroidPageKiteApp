@@ -39,6 +39,7 @@ public class Service extends android.app.Service {
 	private Notification mNotification = null;
 	private static int mStatusCounter = 0;
 	public static String mStatusText;
+	public static int mStatusIconId;
 	public static String mStatusTextMore;
 	public static boolean isRunning = false;
 
@@ -230,6 +231,7 @@ public class Service extends android.app.Service {
 		if (mNotification != null) {
 			Intent nfInt = new Intent(this, Preferences.class);
 			nfInt.addFlags(Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+			mNotification.icon = mStatusIconId;
 			mNotification.setLatestEventInfo(this,
 					mKiteName,
 					(mStatusTextMore == null) ? mStatusText : mStatusTextMore,
@@ -251,31 +253,41 @@ public class Service extends android.app.Service {
 		mStatusTextMore = null;
 		switch (PageKiteAPI.getStatus()) {
 		case PageKiteAPI.PK_STATUS_STARTUP:
+			mStatusIconId = R.drawable.notify_icon;
 			mStatusText = getText(R.string.status_startup).toString();
 			break;
 		case PageKiteAPI.PK_STATUS_CONNECT:
+			mStatusIconId = R.drawable.notify_icon_updn;
 			mStatusText = getText(R.string.status_connect).toString();
 			break;
 		case PageKiteAPI.PK_STATUS_DYNDNS:
+			mStatusIconId = R.drawable.notify_icon_updn;
 			mStatusText = getText(R.string.status_dyndns).toString();
 			break;
 		case PageKiteAPI.PK_STATUS_PROBLEMS:
+			mStatusIconId = R.drawable.notify_icon_dark;
 			mStatusText = getText(R.string.status_problems).toString();
 			break;
 		case PageKiteAPI.PK_STATUS_REJECTED:
+			mStatusIconId = R.drawable.notify_icon_dark;
 			mStatusText = getText(R.string.status_rejected).toString();
 			break;
 		case PageKiteAPI.PK_STATUS_NO_NETWORK:
+			mStatusIconId = R.drawable.notify_icon_dark;
 			mStatusText = getText(R.string.status_no_network).toString();
 			break;
 		case PageKiteAPI.PK_STATUS_FLYING:
+			int liveClients = PageKiteAPI.getLiveStreams();
+			mStatusIconId = (liveClients > 0) ? R.drawable.notify_icon_updn :
+				                                R.drawable.notify_icon;
 			mStatusText = getText(R.string.status_flying).toString();
 			mStatusTextMore = 
 					getText(R.string.status_frontends) + ": " + PageKiteAPI.getLiveFrontends() + 
 					"  " +
-					getText(R.string.status_streams) + ": " + PageKiteAPI.getLiveStreams();
+					getText(R.string.status_streams) + ": " + liveClients;
 			break;
 		default:
+			mStatusIconId = R.drawable.notify_icon_dark;
 			mStatusText = getText(R.string.status_unknown).toString();
 		}
 		return (oldStatusText != (mStatusText + mStatusTextMore));
