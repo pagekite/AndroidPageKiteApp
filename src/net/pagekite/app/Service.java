@@ -109,7 +109,7 @@ public class Service extends android.app.Service {
 				       Toast.LENGTH_LONG).show();
 			stopSelf();
 		}
-		else if ((httpPortNumber + websocketPortNumber + httpsPortNumber) == 0) {
+		else if ((httpPortNumber + websocketPortNumber + httpsPortNumber + sshPortNumber) == 0) {
 			Toast.makeText(getBaseContext(),
 				       getText(R.string.need_service_ports),
 				       Toast.LENGTH_LONG).show();
