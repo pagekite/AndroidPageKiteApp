@@ -70,7 +70,7 @@ public class Preferences extends PreferenceActivity {
 
         addPreferencesFromResource(R.xml.preferences);
 
-        updateStatus(false).setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+        updateStatus().setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
 			@Override
 			public boolean onPreferenceChange(Preference pref, Object obj) {
 				if (mPrefs.getBoolean("enablePageKite", false)) {
@@ -79,7 +79,7 @@ public class Preferences extends PreferenceActivity {
 					if (!stopService(new Intent(getBaseContext(), Service.class))) {
 						enabled.setChecked(false);
 						enabled.setEnabled(true);
-						updateStatus(false);
+						updateStatus();
 					};
 				}
 				else {
@@ -119,6 +119,7 @@ public class Preferences extends PreferenceActivity {
 			}
         };
         findPreference("kiteName").setOnPreferenceChangeListener(opcl);
+        findPreference("kiteSecret").setOnPreferenceChangeListener(opcl);
         findPreference("httpPortNumber").setOnPreferenceChangeListener(opcl);
         findPreference("httpsPortNumber").setOnPreferenceChangeListener(opcl);
         findPreference("websocketPortNumber").setOnPreferenceChangeListener(opcl);
@@ -133,7 +134,7 @@ public class Preferences extends PreferenceActivity {
 		        findPreference("enablePageKite").setEnabled(true);
 		        int counter = event.getIntExtra(Service.STATUS_COUNT, -1);
 		        if (counter >= mStatusCounter) {
-					updateStatus(false);
+					updateStatus();
 		        	mStatusCounter = counter;
 		        }
 			}
@@ -149,7 +150,7 @@ public class Preferences extends PreferenceActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		updateStatus(false);
+		updateStatus();
     	if (mProgressDialog != null) mProgressDialog.dismiss();
         if (!mListening) {
         	registerReceiver(mListener, mListenFilter);
@@ -166,19 +167,47 @@ public class Preferences extends PreferenceActivity {
         }
 	}
 
-	void setPageKiteEnabled(boolean enabled) {
-		updateStatus(false);
+	static public int parseInt(String s) {
+		if (s == null || s.length() < 1) return 0;
+		try {
+			return Integer.parseInt(s);
+		}
+		catch (NumberFormatException e) {
+			return 0;
+		}
 	}
-
+	
+	boolean portsAreConfigured() {
+		return (0 < (parseInt(mPrefs.getString("httpPortNumber", "0")) +
+				     parseInt(mPrefs.getString("httpsPortNumber", "0")) +
+				     parseInt(mPrefs.getString("websocketPortNumber", "0")) +
+				     parseInt(mPrefs.getString("sshPortNumber", "0"))));
+	}
+	
 	boolean kitesAreConfigured() {
-		String kiteName = ((EditTextPreference) findPreference("kiteName")).getText();
-		String kiteSecret = ((EditTextPreference) findPreference("kiteSecret")).getText();
+		String kiteName = mPrefs.getString("kiteName", null);
+		String kiteSecret = mPrefs.getString("kiteSecret", null);
 		return ((kiteName != null) && (kiteSecret != null) &&
                 (kiteName.length() > 0) && (kiteSecret.length() > 0) &&
                 (!kiteName.toLowerCase().equals(getText(R.string.pagekite_default_kitename).toString().toLowerCase())));
 	}
 	
 	protected void updateSummaries() {
+		boolean config_ok = true;
+		CheckBoxPreference p = (CheckBoxPreference) findPreference("enablePageKite");
+		if (!kitesAreConfigured()) {
+			p.setSummary(getText(R.string.need_account_details));
+			config_ok = false;
+		}
+		else if (!portsAreConfigured()) {
+			p.setSummary(getText(R.string.need_service_ports));
+			config_ok = false;
+		}
+		else if (!p.isChecked()) {
+			p.setSummary(getText(R.string.pagekite_stopped));
+		}
+        p.setEnabled(config_ok);
+
 		updateStringPreference("kiteName", R.string.pagekite_summary_kitename,
                 R.string.pagekite_default_kitename,
                 R.string.pagekite_explain_kitename);
@@ -188,10 +217,10 @@ public class Preferences extends PreferenceActivity {
 		updateIntegerPreference("sshPortNumber", R.string.pagekite_summary_sshport);
 	}
 	
-	protected CheckBoxPreference updateStatus(boolean changing) {
+	protected CheckBoxPreference updateStatus() {
 		boolean status = false;
 		CheckBoxPreference enabled = (CheckBoxPreference) findPreference("enablePageKite");
-		status = enabled.isChecked() ^ changing;
+		status = enabled.isChecked();
 
 		if (status) {
 			if (Service.mStatusTextMore != null) {
@@ -201,10 +230,7 @@ public class Preferences extends PreferenceActivity {
 				enabled.setSummary(Service.mStatusText);
 			}
 		}
-		else {
-			enabled.setSummary(getText(R.string.pagekite_stopped));
-		}
-		
+
         enabled.setChecked(status);
         findPreference("prefsAccount").setEnabled(!status);
         findPreference("prefsLocalhost").setEnabled(!status);
@@ -224,12 +250,10 @@ public class Preferences extends PreferenceActivity {
 			p.setSummary(getText(textid) + "\n" + getText(hintid));
 		}
 	}
-	
 
 	public void updateIntegerPreference(String pname, int textid) {
 		EditTextPreference p = (EditTextPreference) findPreference(pname);
-		String text = p.getText();
-		int value = (text != null) ? Integer.parseInt(text) : 0;
+		int value = parseInt(p.getText());
 		if (value != 0) {
 			p.setSummary(getText(textid) + " = " + value + ".");
 		}
@@ -257,10 +281,10 @@ public class Preferences extends PreferenceActivity {
 		String kiteName = mPrefs.getString("kiteName", null);
 		String kiteURL = null;
 		if (kiteName != null && Service.isRunning) {
-			if (Integer.parseInt(mPrefs.getString("httpsPortNumber", "0")) > 0) {
+			if (parseInt(mPrefs.getString("httpsPortNumber", "0")) > 0) {
 				kiteURL = "https://" + kiteName;
 			}
-			else if (Integer.parseInt(mPrefs.getString("httpPortNumber", "0")) > 0) {
+			else if (parseInt(mPrefs.getString("httpPortNumber", "0")) > 0) {
 				if (kiteName.toLowerCase().endsWith(".pagekite.me")) {
 					kiteURL = "https://" + kiteName;
 				} else {

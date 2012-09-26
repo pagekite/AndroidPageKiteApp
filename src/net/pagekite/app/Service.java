@@ -92,10 +92,10 @@ public class Service extends android.app.Service {
 		String problem = "";
 		mKiteName = prefs.getString("kiteName", "kitename");
 		String kiteSecret = prefs.getString("kiteSecret", "secret");
-		int httpPortNumber = Integer.parseInt(prefs.getString("httpPortNumber", "0"));
-		int websocketPortNumber = Integer.parseInt(prefs.getString("websocketPortNumber", "0"));
-		int httpsPortNumber = Integer.parseInt(prefs.getString("httpsPortNumber", "0"));
-		int sshPortNumber = Integer.parseInt(prefs.getString("sshPortNumber", "0"));
+		int httpPortNumber = Preferences.parseInt(prefs.getString("httpPortNumber", "0"));
+		int websocketPortNumber = Preferences.parseInt(prefs.getString("websocketPortNumber", "0"));
+		int httpsPortNumber = Preferences.parseInt(prefs.getString("httpsPortNumber", "0"));
+		int sshPortNumber = Preferences.parseInt(prefs.getString("sshPortNumber", "0"));
 
 		String localip = "localhost";
 		if (prefs.getBoolean("useWiFiIP", false)) {
@@ -190,9 +190,13 @@ public class Service extends android.app.Service {
 	}
 
 	void stopReceivers() {
-		setInexactTimer(false);
-		unregisterReceiver(mConnChangeReceiver);
-		unregisterReceiver(mTimerReceiver);
+		try {
+			setInexactTimer(false);
+			unregisterReceiver(mConnChangeReceiver);
+			unregisterReceiver(mTimerReceiver);
+		} catch (IllegalArgumentException e) {
+			// Ignore
+		}
 	}
 
 	void setInexactTimer(boolean on) {
