@@ -46,6 +46,8 @@ public class Preferences extends PreferenceActivity {
 	private final static int DIALOG_SIGNUP_WORKING = 4;
 	private final static int DIALOG_SIGNUP_RESULT = 5;
 
+	private final static boolean CAN_DO_HTTPS = (Build.VERSION.SDK_INT >= 8);
+
 	private final static String TAG = "PageKite.Preferences";
 
 	private SharedPreferences mPrefs;
@@ -284,7 +286,7 @@ public class Preferences extends PreferenceActivity {
     	return doMenuItem(item.getItemId());
     }
 
-    public String getKiteURL() {
+    public String getKiteURL(boolean can_do_https) {
 		String kiteName = mPrefs.getString("kiteName", null);
 		String kiteURL = null;
 		if (kiteName != null && Service.isRunning) {
@@ -292,7 +294,9 @@ public class Preferences extends PreferenceActivity {
 				kiteURL = "https://" + kiteName;
 			}
 			else if (parseInt(mPrefs.getString("httpPortNumber", "0")) > 0) {
-				if (kiteName.toLowerCase().endsWith(".pagekite.me")) {
+				if ((can_do_https || CAN_DO_HTTPS) &&
+				    kiteName.toLowerCase().endsWith(".pagekite.me"))
+				{
 					kiteURL = "https://" + kiteName;
 				} else {
 					kiteURL = "http://" + kiteName;
@@ -307,7 +311,7 @@ public class Preferences extends PreferenceActivity {
     	Intent ntnt;
     	switch (itemId) {
     		case R.id.open_url:
-    			kiteURL = getKiteURL();
+    			kiteURL = getKiteURL(false);
     			if (kiteURL != null) {
     				startActivity(new Intent(Intent.ACTION_DEFAULT, Uri.parse(kiteURL)));
     			}
@@ -318,7 +322,7 @@ public class Preferences extends PreferenceActivity {
     			}
 				return true;
     		case R.id.share_url:
-    			kiteURL = getKiteURL();
+    			kiteURL = getKiteURL(true);
     			if (kiteURL != null) {
      				ntnt = new Intent(Intent.ACTION_SEND);
      				ntnt.setType("text/plain");
@@ -463,7 +467,7 @@ public class Preferences extends PreferenceActivity {
 	            	mSignupError = null;
 
 	            	// Sadly, older droids don't like our SSL certificate
-	            	URI uri = URI.create((Build.VERSION.SDK_INT >= 8) ?
+	            	URI uri = URI.create(CAN_DO_HTTPS ?
 	            			             PageKiteAPI.PAGEKITE_NET_XMLRPCS : 
 	            			             PageKiteAPI.PAGEKITE_NET_XMLRPC);
 

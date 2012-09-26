@@ -16,7 +16,7 @@
     <string name="need_account_details">Account details are missing.</string>
     <string name="need_service_ports">No local servers have been configured.</string>
     <string name="need_flying_httpkite">No HTTP kites are flying at the moment.</string>
-    
+
     <string name="status_unknown">Unrecognized status!</string>
     <string name="status_startup">Preparing kites...</string>
     <string name="status_connect">Connecting to frontends...</string>
