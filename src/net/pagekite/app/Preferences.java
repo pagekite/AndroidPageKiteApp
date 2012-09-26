@@ -191,8 +191,8 @@ public class Preferences extends PreferenceActivity {
                 (kiteName.length() > 0) && (kiteSecret.length() > 0) &&
                 (!kiteName.toLowerCase().equals(getText(R.string.pagekite_default_kitename).toString().toLowerCase())));
 	}
-	
-	protected void updateSummaries() {
+
+	protected void updateEnableBox() {
 		boolean config_ok = true;
 		CheckBoxPreference p = (CheckBoxPreference) findPreference("enablePageKite");
 		if (!kitesAreConfigured()) {
@@ -207,7 +207,10 @@ public class Preferences extends PreferenceActivity {
 			p.setSummary(getText(R.string.pagekite_stopped));
 		}
         p.setEnabled(config_ok);
+	}
 
+	protected void updateSummaries() {
+		updateEnableBox();
 		updateStringPreference("kiteName", R.string.pagekite_summary_kitename,
                 R.string.pagekite_default_kitename,
                 R.string.pagekite_explain_kitename);
@@ -229,6 +232,9 @@ public class Preferences extends PreferenceActivity {
 			else {
 				enabled.setSummary(Service.mStatusText);
 			}
+		}
+		else {
+			updateEnableBox();
 		}
 
         enabled.setChecked(status);

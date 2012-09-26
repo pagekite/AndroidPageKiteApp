@@ -29,7 +29,7 @@
     <string name="status_streams">Live clients</string>
     
     <string name="pagekite_pref_enable">Enable PageKite</string>
-    <string name="pagekite_stopped">Your kites are grounded.</string>
+    <string name="pagekite_stopped">Your kites are ready to fly.</string>
     <string name="pagekite_pref_notification">Show Notification</string>
     <string name="pagekite_summary_notification">Display status icon when active.</string>
     <string name="pagekite_pref_bootstart">Restart on Boot</string>
