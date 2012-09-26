@@ -19,6 +19,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.CheckBoxPreference;
@@ -461,7 +462,11 @@ public class Preferences extends PreferenceActivity {
 	            public void run() {
 	            	mSignupError = null;
 
-	            	URI uri = URI.create(PageKiteAPI.PAGEKITE_NET_XMLRPC);
+	            	// Sadly, older droids don't like our SSL certificate
+	            	URI uri = URI.create((Build.VERSION.SDK_INT >= 8) ?
+	            			             PageKiteAPI.PAGEKITE_NET_XMLRPCS : 
+	            			             PageKiteAPI.PAGEKITE_NET_XMLRPC);
+
 	          	    XMLRPCClient client = new XMLRPCClient(uri);
           	    	Object[] result = null;
 	          	    try {
