@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="net.pagekite.app"
-          android:versionCode="@integer/app_version_code"
-          android:versionName="@string/app_version_name" >
+          android:versionCode="1209270"
+          android:versionName="1.005" >
     <uses-sdk android:minSdkVersion="7" android:targetSdkVersion="14" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
