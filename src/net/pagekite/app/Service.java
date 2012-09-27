@@ -120,11 +120,13 @@ public class Service extends android.app.Service {
 			boolean ok = true;
 			if (ok) {
 				boolean debug = prefs.getBoolean("enableDebugging", false);
+				String id_s = getText(R.string.app_id_short).toString();
+				String id_l = getText(R.string.app_id_long).toString();
 				if (prefs.getBoolean("usePageKiteNet", false)) {
-					ok = PageKiteAPI.initPagekiteNet(5, 30, debug);
+					ok = PageKiteAPI.initPagekiteNet(5, 30, id_s, id_l, debug);
 				}
 				else {
-					ok = (PageKiteAPI.init(5, 2, 30, null, debug) &&
+					ok = (PageKiteAPI.init(5, 2, 30, null, id_s, id_l, debug) &&
 					      PageKiteAPI.addFrontend(mKiteName, 443));
 				}
 				problem = "Init failed.";

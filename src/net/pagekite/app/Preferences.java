@@ -467,9 +467,8 @@ public class Preferences extends PreferenceActivity {
 	            	mSignupError = null;
 
 	            	// Sadly, older droids don't like our SSL certificate
-	            	URI uri = URI.create(CAN_DO_HTTPS ?
-	            			             PageKiteAPI.PAGEKITE_NET_XMLRPCS : 
-	            			             PageKiteAPI.PAGEKITE_NET_XMLRPC);
+	            	URI uri = URI.create(PageKiteAPI.pageKiteNet_XMLRPC(
+	            			CAN_DO_HTTPS, getText(R.string.app_id_short).toString()));
 
 	          	    XMLRPCClient client = new XMLRPCClient(uri);
           	    	Object[] result = null;
