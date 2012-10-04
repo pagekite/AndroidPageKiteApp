@@ -83,10 +83,8 @@ all more CLI-friendly, that would be most appreciated!
 
 PageKite for Android is Copyright 2012, The Beanstalks Project ehf.
 
-This code is released under the GNU Affero General Public License version 3,
-but may also be used (under specific conditions) according to the terms of the
-GNU Lesser General Public License.  Please see the file COPYING.md for details
-on which license applies to you.
+This code is released under the GNU Affero General Public License version 3.
+Please see the file COPYING.md for details.
 
 Commercial support for this code, as well as managed front-end relay service,
 are available from <https://pagekite.net/>.
