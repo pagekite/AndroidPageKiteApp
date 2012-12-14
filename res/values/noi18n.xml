@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-	<integer name="app_version_code">1209271</integer>
-	<string name="app_id_short">npa1209271</string>
+	<integer name="app_version_code">1212140</integer>
+	<string name="app_id_short">npa1212140</string>
 
-	<string name="app_version_name">1.006</string>
-	<string name="app_id_long">net.pagekite.app/1.006</string>
+	<string name="app_version_name">1.007</string>
+	<string name="app_id_long">net.pagekite.app/1.007</string>
 
 </resources>
